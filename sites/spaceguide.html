@@ -6,9 +6,9 @@
   <meta name="description" content="현대 AI 캠퍼스 안팎, 잠깐의 여유를 위한 일곱 공간을 만나보세요.">
   <title>SPACE GUIDE · Hyundai AI Campus</title>
   <style>
-    :root { --hyundai-blue: #002c5f; --hyundai-sand: #e4dcd3; --hyundai-gold: #a36b4f; --page-background: #f8f6f3; }
+    :root { --hyundai-blue: #002C5F; --hyundai-sand: #E4DCD3; --hyundai-gold: #A36B4F; --background: #F7F5F2; --card: #FFFFFF; --text: #1F2937; --page-background: var(--background); }
     * { box-sizing: border-box; }
-    body { margin: 0; background: var(--page-background); color: var(--hyundai-blue); font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Malgun Gothic", "맑은 고딕", sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    body { margin: 0; background: var(--page-background); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Malgun Gothic", "맑은 고딕", sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; }
     button { font-family: inherit; cursor: pointer; }
     button:focus-visible, article:focus-visible { outline: 3px solid var(--hyundai-gold); outline-offset: 4px; }
     .page { min-height: 100vh; }
@@ -17,41 +17,41 @@
     .brand { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; color: var(--hyundai-sand); font-size: 11px; font-weight: 700; letter-spacing: .14em; }
     .brand-dot { width: 7px; height: 7px; flex-shrink: 0; border-radius: 50%; background: var(--hyundai-gold); }
     .header-content { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
-    h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 800; color: #fff; margin: 0 0 8px; letter-spacing: -.02em; line-height: 1.1; }
-    .subtitle { font-size: 15px; color: rgba(255,255,255,.55); margin: 0; }
+    h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 800; color: var(--hyundai-blue); background: var(--hyundai-sand); margin: 0 0 8px; letter-spacing: -.02em; line-height: 1.1; }
+    .subtitle { font-size: 15px; color: var(--hyundai-sand); margin: 0; }
     .filters { display: flex; gap: 6px; padding-bottom: 2px; }
-    .filter-btn { padding: 8px 20px; border-radius: 100px; border: 1.5px solid var(--hyundai-sand); background: var(--hyundai-blue); color: var(--hyundai-sand); font-size: 12px; font-weight: 700; letter-spacing: .07em; transition: background .18s, border-color .18s; }
-    .filter-btn[aria-pressed="true"] { border-color: var(--hyundai-gold); background: #4FA3E8; color: var(--hyundai-blue); }
-    .filter-btn:hover { border-color: #4FA3E8; }
+    .filter-btn { padding: 8px 20px; border-radius: 100px; border: 1.5px solid var(--hyundai-sand); background: var(--card); color: var(--hyundai-blue); font-size: 12px; font-weight: 700; letter-spacing: .07em; transition: background .18s, border-color .18s; }
+    .filter-btn[aria-pressed="true"] { border-color: var(--hyundai-sand); background: var(--hyundai-blue); color: #FFFFFF; }
+    .filter-btn:hover { border-color: var(--hyundai-gold); }
     .wave { display: block; width: 100%; }
     main { max-width: 1160px; margin: 0 auto; padding: 32px 32px 72px; }
     .card-rows { display: flex; flex-direction: column; gap: 20px; }
     .card-grid-row { display: grid; grid-template-columns: repeat(var(--columns), minmax(0, 1fr)); gap: 20px; }
-    .space-card { background: #fff; border-radius: 20px; overflow: hidden; cursor: pointer; box-shadow: 0 2px 12px rgba(0,44,95,.07); transition: transform .2s, box-shadow .2s; }
-    .space-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,44,95,.12); }
+    .space-card { background: var(--card); border-radius: 20px; overflow: hidden; cursor: pointer; box-shadow: 0 2px 12px rgba(228,220,211,.7); transition: transform .2s, box-shadow .2s; }
+    .space-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(228,220,211,.9); }
     .card-image { position: relative; height: 148px; background: var(--hyundai-sand); }
     .space-image { width: 100%; height: 100%; object-fit: cover; display: block; }
     .card-image::after, .modal-image::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(0,44,95,.28) 100%); pointer-events: none; }
     .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 100px; }
-    .type-indoor { background: rgba(237,233,254,.9); color: #5B21B6; }
-    .type-outdoor { background: rgba(254,243,199,.9); color: #92400E; }
+    .type-indoor { background: rgba(232,228,237,.95); color: #62566F; }
+    .type-outdoor { background: rgba(239,230,216,.95); color: #795E40; }
     .card-type { position: absolute; top: 10px; left: 10px; z-index: 1; font-size: 10px; letter-spacing: .06em; }
     .location { position: absolute; bottom: 10px; left: 12px; z-index: 1; font-size: 11px; font-weight: 700; color: rgba(255,255,255,.9); letter-spacing: .06em; }
     .card-text { padding: 14px 16px 16px; }
     .card-name { margin: 0 0 1px; font-size: 15px; font-weight: 800; color: var(--hyundai-blue); line-height: 1.2; }
-    .card-korean { margin: 0 0 8px; font-size: 12px; color: #94A3B8; font-weight: 500; }
-    .card-description { margin: 0 0 12px; font-size: 12px; color: #475569; line-height: 1.6; }
+    .card-korean { margin: 0 0 8px; font-size: 12px; color: #626B76; font-weight: 500; }
+    .card-description { margin: 0 0 12px; font-size: 12px; color: var(--text); line-height: 1.6; }
     .tags { display: flex; gap: 5px; flex-wrap: wrap; }
     /* The reference names these classes without supplying their CSS. */
-    .tag-snack { background: #FEF3C7; color: #92400E; }
-    .tag-rest { background: #EDE9FE; color: #5B21B6; }
-    .tag-walk { background: #DCFCE7; color: #166534; }
-    .tag-fitness { background: #DBEAFE; color: #1D4ED8; }
+    .tag-snack { background: #EFE6D8; color: #795E40; }
+    .tag-rest { background: #E8E4ED; color: #62566F; }
+    .tag-walk { background: #E3E9E1; color: #50664F; }
+    .tag-fitness { background: #E0E7EE; color: var(--hyundai-blue); }
     footer { background: var(--hyundai-blue); padding: 28px 32px; text-align: center; }
-    footer p { font-size: 12px; color: rgba(255,255,255,.35); margin: 0; }
+    footer p { font-size: 12px; color: var(--hyundai-sand); margin: 0; }
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,44,95,.45); backdrop-filter: blur(4px); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 24px; }
     .modal-overlay[hidden] { display: none; }
-    .modal-panel { background: #fff; border-radius: 28px; width: 100%; max-width: 480px; max-height: calc(100dvh - 48px); overflow: auto; box-shadow: 0 24px 80px rgba(0,44,95,.2); }
+    .modal-panel { background: var(--card); border-radius: 28px; width: 100%; max-width: 480px; max-height: calc(100dvh - 48px); overflow: auto; box-shadow: 0 24px 80px rgba(0,44,95,.2); }
     .modal-image { position: relative; height: 220px; background: var(--hyundai-sand); }
     .modal-image::after { background: linear-gradient(to bottom, transparent 35%, rgba(0,44,95,.55) 100%); }
     .close-button { position: absolute; top: 14px; right: 14px; z-index: 2; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.9); border: none; font-size: 18px; color: var(--hyundai-blue); font-weight: 700; display: flex; align-items: center; justify-content: center; }
@@ -63,7 +63,7 @@
     .details { margin: 0; padding: 4px 24px 26px; }
     .detail-row { display: flex; gap: 14px; align-items: flex-start; padding: 13px 0; border-bottom: 1px solid var(--hyundai-sand); }
     .detail-row dt { min-width: 38px; font-size: 11px; font-weight: 700; letter-spacing: .06em; padding-top: 2px; }
-    .detail-row dd { margin: 0; font-size: 14px; color: #334155; line-height: 1.65; }
+    .detail-row dd { margin: 0; font-size: 14px; color: var(--text); line-height: 1.65; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
     @media (max-width: 760px) { .card-grid-row { grid-template-columns: repeat(min(var(--columns), 2), minmax(0, 1fr)); } }
     @media (max-width: 480px) { .header-inner { padding: 28px 20px 24px; } main { padding: 24px 20px 48px; } .card-grid-row { grid-template-columns: minmax(0, 1fr); } .filter-btn { padding: 8px 18px; } }
