@@ -284,3 +284,296 @@ a { color: inherit; text-decoration: none; }
   .detail-head { flex-direction: column; align-items: flex-start; gap: 16px; }
   .detail-head h1 { font-size: 26px; }
 }
+
+/* =========================
+   Facility Page
+========================= */
+
+.facility-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
+
+
+/* Hero */
+
+.facility-hero {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  padding: 36px;
+  margin: 24px 0 28px;
+
+  background: #f5f9ff;
+  border: 1px solid #e6edf7;
+  border-radius: 24px;
+}
+
+.hero-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 90px;
+  height: 90px;
+
+  font-size: 42px;
+
+  background: white;
+  border-radius: 24px;
+
+  flex-shrink: 0;
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #6284aa;
+}
+
+.facility-hero h1 {
+  margin: 6px 0;
+  font-size: 34px;
+}
+
+.facility-hero p {
+  margin: 0;
+  color: #666;
+}
+
+.location {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 7px 12px;
+
+  background: white;
+  border-radius: 10px;
+
+  font-size: 13px;
+  color: #555;
+}
+
+
+/* Category Tabs */
+
+.facility-tabs {
+  display: flex;
+  gap: 10px;
+
+  margin-bottom: 42px;
+}
+
+.facility-tabs a {
+  padding: 10px 16px;
+
+  border-radius: 100px;
+
+  background: #f3f4f6;
+
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+
+  transition: 0.2s;
+}
+
+.facility-tabs a:hover {
+  background: #e5efff;
+  transform: translateY(-2px);
+}
+
+
+/* Section */
+
+.facility-section {
+  margin-bottom: 54px;
+  scroll-margin-top: 30px;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  margin-bottom: 18px;
+}
+
+.section-head h2 {
+  margin: 4px 0;
+  font-size: 24px;
+}
+
+.section-head p {
+  margin: 0;
+  color: #777;
+  font-size: 14px;
+}
+
+.category {
+  color: #8aa6c7;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+
+/* Map button */
+
+.map-button {
+  padding: 9px 13px;
+
+  border: 1px solid #ddd;
+  border-radius: 10px;
+
+  text-decoration: none;
+  color: #444;
+
+  font-size: 13px;
+
+  transition: 0.2s;
+}
+
+.map-button:hover {
+  background: #f7f7f7;
+}
+
+
+/* Place Cards */
+
+.place-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.place-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  padding: 20px;
+
+  border: 1px solid #e9e9e9;
+  border-radius: 18px;
+
+  background: white;
+
+  transition: 0.2s;
+}
+
+.place-card:hover {
+  transform: translateY(-3px);
+
+  border-color: #cfdceb;
+
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.06);
+}
+
+.place-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 52px;
+  height: 52px;
+
+  border-radius: 15px;
+  background: #f6f8fb;
+
+  font-size: 25px;
+
+  flex-shrink: 0;
+}
+
+.place-info h3 {
+  margin: 0 0 5px;
+  font-size: 16px;
+}
+
+.place-info p {
+  margin: 0 0 8px;
+
+  font-size: 13px;
+  color: #777;
+}
+
+.place-info a {
+  font-size: 13px;
+  font-weight: 600;
+
+  color: #497bad;
+  text-decoration: none;
+}
+
+.place-info a:hover {
+  text-decoration: underline;
+}
+
+
+/* TIP */
+
+.facility-tip {
+  display: flex;
+  gap: 12px;
+
+  padding: 18px 20px;
+
+  border-radius: 15px;
+
+  background: #fffbea;
+
+  font-size: 14px;
+}
+
+.facility-tip span {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.facility-tip p {
+  margin: 0;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+  .facility-hero {
+    align-items: flex-start;
+    padding: 24px;
+  }
+
+  .hero-icon {
+    width: 65px;
+    height: 65px;
+    font-size: 30px;
+  }
+
+  .facility-hero h1 {
+    font-size: 27px;
+  }
+
+  .facility-tabs {
+    overflow-x: auto;
+  }
+
+  .facility-tabs a {
+    white-space: nowrap;
+  }
+
+  .place-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-head {
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+}
