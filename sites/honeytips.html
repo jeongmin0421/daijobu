@@ -299,6 +299,19 @@
 
     .tips-section p strong { font-weight: 600; }
 
+    /* 운영시간처럼 숫자 하나가 곧 답인 경우.
+       바로 위 .tips-section p 규칙보다 우선하도록 선택자를 한 단계 더 붙입니다. */
+    .tips-section p.hours-big {
+      margin: 0 0 20px;
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.374px;
+      font-variant-numeric: tabular-nums;
+      color: var(--ink);
+    }
+
     /* ── 꿀팁 목록 ──────────────────────────────────────────── */
 
     .tips-list {
@@ -620,7 +633,6 @@
           <ol>
             <li><a href="#lobby-seat">자리 꿀팁</a></li>
             <li><a href="#lobby-ice">얼음 정수기</a></li>
-            <li><a href="#lobby-snack">오늘의 다과 현황</a></li>
           </ol>
         </li>
         <li>
@@ -643,11 +655,10 @@
       <section class="tips-section" id="hours">
         <h2><span class="num">1</span>교육장 운영시간</h2>
 
-        <!-- TODO: 실제 운영시간을 확인해서 이 자리를 채워 주세요 -->
-        <div class="tips-todo">
-          <strong>운영시간 확인이 필요합니다</strong>
-          <span>정확한 개방·마감 시각을 확인한 뒤 이 자리를 채워 주세요. 교육 자체는 09:00에 시작해 17:50에 끝납니다.</span>
-        </div>
+        <p class="hours-big">08:30 – 21:30</p>
+
+        <p>교육은 09:00에 시작해 17:50에 끝납니다. 교육 시작 <strong>30분 전</strong>부터 들어올 수 있고,
+        끝난 뒤에도 <strong>3시간 40분</strong> 더 남아 있을 수 있습니다.</p>
       </section>
 
       <!-- 2. 교육시간 · 쉬는시간 표 -->
@@ -698,11 +709,16 @@
 
         <div class="tips-sub" id="lobby-seat">
           <h3>자리 꿀팁</h3>
-          <!-- TODO: 로비 자리에 대해 알아둘 점을 적어 주세요 -->
-          <div class="tips-todo">
-            <strong>내용을 채워 주세요</strong>
-            <span>콘센트가 있는 자리, 조용한 구석, 사람이 몰리는 시간대 같은 것들을 적으면 좋습니다.</span>
-          </div>
+          <ul class="tips-list">
+            <li>
+              <strong>회의실은 곧 예약제로 바뀝니다</strong>
+              <span>지금은 비어 있으면 그냥 쓸 수 있지만, 바뀐 뒤에는 미리 잡아야 합니다.</span>
+            </li>
+            <li>
+              <strong>창고 앞 폭신한 의자가 진짜 좋습니다</strong>
+              <span>쉬는시간에 잠깐 앉아 쉬기 좋은 자리입니다.</span>
+            </li>
+          </ul>
         </div>
 
         <div class="tips-sub" id="lobby-ice">
@@ -716,16 +732,6 @@
           </div>
         </div>
 
-        <div class="tips-sub" id="lobby-snack">
-          <h3>오늘의 다과 현황</h3>
-          <!-- TODO: 다과가 바뀌면 아래 목록을 고치고 커밋하면 됩니다 -->
-          <ul class="tips-list">
-            <li>
-              <strong>다과 목록을 채워 주세요</strong>
-              <span>이 자리에 오늘 나온 다과를 적고 커밋하면 목록이 갱신됩니다.</span>
-            </li>
-          </ul>
-        </div>
       </section>
 
       <!-- 4. 강의장 꿀팁 -->
