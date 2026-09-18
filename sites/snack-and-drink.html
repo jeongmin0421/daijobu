@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오늘의 다과정보 — 현대 AI CAMPUS 아세요? 그렇다고 해주소.</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    /* 다과 그리드 및 추가 스타일 정의 */
+    .datetime-banner {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+
+    /* 그리드 레이아웃 (4열) */
+    .snack-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    /* 개별 카드 스타일 */
+    .snack-card {
+      background: #fff;
+      border: 1px solid #eaeaea;
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.2s ease;
+    }
+
+    .snack-card:hover {
+      transform: translateY(-3px);
+    }
+
+    /* 아이콘/이미지 영역 */
+    .snack-img {
+      width: 100%;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 0.75rem;
+      border-radius: 8px;
+      background: #f9f9f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    /* 아이템 이름 */
+    .snack-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #333;
+      word-break: keep-all;
+    }
+
+    /* 신상 제품 강조 스타일 */
+    .snack-card.new {
+      border: 2px solid #2e7d32;
+      background-color: #f4fbf4;
+    }
+
+    /* 신상 뱃지 */
+    .badge-new {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background-color: #2e7d32;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* 반응형 디자인 (모바일 화면에서는 2열로 변경) */
+    @media (max-width: 768px) {
+      .snack-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container container-narrow" style="max-width: 800px;">
+
+    <nav class="detail-nav">
+      <a href="../index.html">← 목록으로</a>
+    </nav>
+
+    <!-- ① 제목과 한 줄 소개 -->
+    <header class="detail-head">
+      <div class="detail-thumb" style="--thumb:#e2f0ff">🍪</div>
+      <div>
+        <h1>오늘의 다과 정보</h1>
+        <p>현대 AI CAMPUS 교육장 당충전 리스트</p>
+      </div>
+    </header>
+
+    <!-- 🗓️ 상단 날짜와 시간 표시 영역 -->
+    <div class="datetime-banner" id="current-datetime"></div>
+
+    <!-- ② 오늘의 과자 섹션 -->
+    <section class="detail-section">
+      <h2>🍪 오늘의 과자</h2>
+      
+      <div class="snack-grid">
+        <!-- 1 -->
+        <div class="snack-card">
+          <div class="snack-img">🥮</div>
+          <div class="snack-title">삼립 약과</div>
+        </div>
+
+        <!-- 2 (신상 예시) -->
+        <div class="snack-card">
+          <div class="snack-img">🍪</div>
+          <div class="snack-title">한입 미니 비스킷 솔트맛</div>
+        </div>
+
+        <!-- 3 -->
+        <div class="snack-card">
+          <div class="snack-img">🍬</div>
+          <div class="snack-title">멘토스</div>
+        </div>
+
+        <!-- 4 -->
+        <div class="snack-card">
+          <div class="snack-img">🌾</div>
+          <div class="snack-title">오트밀 미니바이트</div>
+        </div>
+
+        <!-- 5 -->
+        <div class="snack-card">
+          <div class="snack-img">🥔</div>
+          <div class="snack-title">포테이토 크리스프</div>
+        </div>
+
+        <!-- 6 -->
+        <div class="snack-card">
+          <div class="snack-img">🧈</div>
+          <div class="snack-title">사브레 버터쿠키</div>
+        </div>
+
+        <!-- 7 -->
+        <div class="snack-card">
+          <div class="snack-img">🥨</div>
+          <div class="snack-title">고멧 참깨 코코넛 크래커</div>
+        </div>
+
+        <!-- 8 -->
+        <div class="snack-card">
+          <div class="snack-img">🍫</div>
+          <div class="snack-title">빅파이</div>
+        </div>
+
+        <!-- 9 -->
+        <div class="snack-card new">
+          <span class="badge-new">NEW</span> <!-- 이 부분 추가 -->
+          <div class="snack-img">🍘</div>
+          <div class="snack-title">쌀과자</div>
+        </div>
+
+        <!-- 10 (신상 예시) -->
+        <div class="snack-card">
+          <div class="snack-img">🍏</div>
+          <div class="snack-title">애플 쿠키</div>
+        </div>
+
+        <!-- 11 -->
+        <div class="snack-card">
+          <div class="snack-img">🥖</div>
+          <div class="snack-title">오븐에 구운 24 크리스피롤</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ③ 오늘의 음료 섹션 -->
+    <section class="detail-section">
+      <h2>🧃 오늘의 음료</h2>
+      
+      <div class="snack-grid">
+        <!-- 1 -->
+        <div class="snack-card">
+          <div class="snack-img">🍊</div>
+          <div class="snack-title">비타 500</div>
+        </div>
+
+        <!-- 2 (신상 예시) -->
+        <div class="snack-card">
+          <div class="snack-img">🥤</div>
+          <div class="snack-title">펩시 제로 레몬맛</div>
+        </div>
+
+        <!-- 3 -->
+        <div class="snack-card">
+          <div class="snack-img">🧃</div>
+          <div class="snack-title">피크닉</div>
+        </div>
+
+        <!-- 4 -->
+        <div class="snack-card new">
+          <span class="badge-new">NEW</span>
+          <div class="snack-img">🥛</div>
+          <div class="snack-title">맛있는 두유 GT</div>
+        </div>
+
+        <!-- 5 -->
+        <div class="snack-card">
+          <div class="snack-img">☕</div>
+          <div class="snack-title">레쓰비 마일드 커피</div>
+        </div>
+
+        <!-- 6 (신상 예시) -->
+        <div class="snack-card">
+          <div class="snack-img">⚡</div>
+          <div class="snack-title">핫식스</div>
+        </div>
+
+        <!-- 7 -->
+        <div class="snack-card">
+          <div class="snack-img">🧊</div>
+          <div class="snack-title">조지아 오리지널 커피</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ④ 안내사항 -->
+    <section class="detail-section">
+      <h2>안내사항</h2>
+      <p>
+        하루 2번 간단한 다과를 오전 10:00와 오후 15:00에 비치합니다!
+      </p>
+    </section>
+
+    <!-- ⑤ 추천한 사람 -->
+    <footer class="detail-foot">
+      작성 · 박정민
+    </footer>
+
+  </div>
+
+  <!-- JavaScript: 실시간 날짜 및 시간 출력 -->
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      const options = { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric', 
+        weekday: 'long', 
+        hour: '2-digit', 
+        minute: '2-digit' 
+      };
+      document.getElementById('current-datetime').innerText = `📅 업데이트 기준: ${now.toLocaleDateString('ko-KR', options)}`;
+    }
+    updateDateTime();
+  </script>
+
+</body>
+</html>
