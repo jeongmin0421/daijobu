@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="현대 AI 캠퍼스 안팎, 잠깐의 여유를 위한 일곱 공간을 만나보세요.">
+  <title>SPACE GUIDE · Hyundai AI Campus</title>
+  <style>
+    :root { --hyundai-blue: #002c5f; --hyundai-sand: #e4dcd3; --hyundai-gold: #a36b4f; --page-background: #f8f6f3; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--page-background); color: var(--hyundai-blue); font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Malgun Gothic", "맑은 고딕", sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    button { font-family: inherit; cursor: pointer; }
+    button:focus-visible, article:focus-visible { outline: 3px solid var(--hyundai-gold); outline-offset: 4px; }
+    .page { min-height: 100vh; }
+    .header { background: var(--hyundai-blue); }
+    .header-inner { max-width: 1160px; margin: 0 auto; padding: 36px 32px 32px; }
+    .brand { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; color: var(--hyundai-sand); font-size: 11px; font-weight: 700; letter-spacing: .14em; }
+    .brand-dot { width: 7px; height: 7px; flex-shrink: 0; border-radius: 50%; background: var(--hyundai-gold); }
+    .header-content { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 800; color: #fff; margin: 0 0 8px; letter-spacing: -.02em; line-height: 1.1; }
+    .subtitle { font-size: 15px; color: rgba(255,255,255,.55); margin: 0; }
+    .filters { display: flex; gap: 6px; padding-bottom: 2px; }
+    .filter-btn { padding: 8px 20px; border-radius: 100px; border: 1.5px solid var(--hyundai-sand); background: var(--hyundai-blue); color: var(--hyundai-sand); font-size: 12px; font-weight: 700; letter-spacing: .07em; transition: background .18s, border-color .18s; }
+    .filter-btn[aria-pressed="true"] { border-color: var(--hyundai-gold); background: #4FA3E8; color: var(--hyundai-blue); }
+    .filter-btn:hover { border-color: #4FA3E8; }
+    .wave { display: block; width: 100%; }
+    main { max-width: 1160px; margin: 0 auto; padding: 32px 32px 72px; }
+    .card-rows { display: flex; flex-direction: column; gap: 20px; }
+    .card-grid-row { display: grid; grid-template-columns: repeat(var(--columns), minmax(0, 1fr)); gap: 20px; }
+    .space-card { background: #fff; border-radius: 20px; overflow: hidden; cursor: pointer; box-shadow: 0 2px 12px rgba(0,44,95,.07); transition: transform .2s, box-shadow .2s; }
+    .space-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,44,95,.12); }
+    .card-image { position: relative; height: 148px; background: var(--hyundai-sand); }
+    .space-image { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .card-image::after, .modal-image::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(0,44,95,.28) 100%); pointer-events: none; }
+    .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 100px; }
+    .type-indoor { background: rgba(237,233,254,.9); color: #5B21B6; }
+    .type-outdoor { background: rgba(254,243,199,.9); color: #92400E; }
+    .card-type { position: absolute; top: 10px; left: 10px; z-index: 1; font-size: 10px; letter-spacing: .06em; }
+    .location { position: absolute; bottom: 10px; left: 12px; z-index: 1; font-size: 11px; font-weight: 700; color: rgba(255,255,255,.9); letter-spacing: .06em; }
+    .card-text { padding: 14px 16px 16px; }
+    .card-name { margin: 0 0 1px; font-size: 15px; font-weight: 800; color: var(--hyundai-blue); line-height: 1.2; }
+    .card-korean { margin: 0 0 8px; font-size: 12px; color: #94A3B8; font-weight: 500; }
+    .card-description { margin: 0 0 12px; font-size: 12px; color: #475569; line-height: 1.6; }
+    .tags { display: flex; gap: 5px; flex-wrap: wrap; }
+    /* The reference names these classes without supplying their CSS. */
+    .tag-snack { background: #FEF3C7; color: #92400E; }
+    .tag-rest { background: #EDE9FE; color: #5B21B6; }
+    .tag-walk { background: #DCFCE7; color: #166534; }
+    .tag-fitness { background: #DBEAFE; color: #1D4ED8; }
+    footer { background: var(--hyundai-blue); padding: 28px 32px; text-align: center; }
+    footer p { font-size: 12px; color: rgba(255,255,255,.35); margin: 0; }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,44,95,.45); backdrop-filter: blur(4px); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 24px; }
+    .modal-overlay[hidden] { display: none; }
+    .modal-panel { background: #fff; border-radius: 28px; width: 100%; max-width: 480px; max-height: calc(100dvh - 48px); overflow: auto; box-shadow: 0 24px 80px rgba(0,44,95,.2); }
+    .modal-image { position: relative; height: 220px; background: var(--hyundai-sand); }
+    .modal-image::after { background: linear-gradient(to bottom, transparent 35%, rgba(0,44,95,.55) 100%); }
+    .close-button { position: absolute; top: 14px; right: 14px; z-index: 2; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.9); border: none; font-size: 18px; color: var(--hyundai-blue); font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .modal-heading { position: absolute; bottom: 18px; left: 22px; right: 22px; z-index: 1; }
+    .modal-tags { display: flex; gap: 6px; margin-bottom: 7px; flex-wrap: wrap; }
+    .modal-tags .badge { padding: 3px 10px; }
+    .modal-heading h2 { margin: 0; font-size: 20px; font-weight: 800; color: #fff; line-height: 1.2; }
+    .modal-heading p { margin: 3px 0 0; font-size: 13px; color: rgba(255,255,255,.8); }
+    .details { margin: 0; padding: 4px 24px 26px; }
+    .detail-row { display: flex; gap: 14px; align-items: flex-start; padding: 13px 0; border-bottom: 1px solid var(--hyundai-sand); }
+    .detail-row dt { min-width: 38px; font-size: 11px; font-weight: 700; letter-spacing: .06em; padding-top: 2px; }
+    .detail-row dd { margin: 0; font-size: 14px; color: #334155; line-height: 1.65; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    @media (max-width: 760px) { .card-grid-row { grid-template-columns: repeat(min(var(--columns), 2), minmax(0, 1fr)); } }
+    @media (max-width: 480px) { .header-inner { padding: 28px 20px 24px; } main { padding: 24px 20px 48px; } .card-grid-row { grid-template-columns: minmax(0, 1fr); } .filter-btn { padding: 8px 18px; } }
+    @media (prefers-reduced-motion: reduce) { .space-card, .filter-btn { transition: none; } .space-card:hover { transform: none; } }
+  </style>
+</head>
+<body>
+  <div class="page" id="page">
+    <header class="header">
+      <div class="header-inner">
+        <div class="brand"><span class="brand-dot" aria-hidden="true"></span><span>DAIJOBU · HYUNDAI AI CAMPUS</span></div>
+        <div class="header-content">
+          <div><h1>SPACE GUIDE</h1><p class="subtitle">교육장 안팎, 잠깐의 여유를 위한 공간들.</p></div>
+          <div class="filters" role="group" aria-label="공간 유형 필터">
+            <button class="filter-btn" type="button" data-filter="ALL" aria-pressed="true" aria-controls="cards">ALL</button>
+            <button class="filter-btn" type="button" data-filter="INDOOR" aria-pressed="false" aria-controls="cards">INDOOR</button>
+            <button class="filter-btn" type="button" data-filter="OUTDOOR" aria-pressed="false" aria-controls="cards">OUTDOOR</button>
+          </div>
+        </div>
+      </div>
+      <svg class="wave" viewBox="0 0 1440 32" preserveAspectRatio="none" aria-hidden="true"><path d="M0,16 C480,32 960,0 1440,16 L1440,32 L0,32 Z" fill="var(--page-background)"/></svg>
+    </header>
+    <main aria-label="캠퍼스 공간 목록"><p class="sr-only" id="result-status" role="status"></p><div class="card-rows" id="cards"></div><noscript>공간 목록과 필터를 이용하려면 JavaScript를 활성화해 주세요.</noscript></main>
+    <footer><p>Made with 💙 by Daijobu · Hyundai AI Campus Student Guide</p></footer>
+  </div>
+  <div class="modal-overlay" id="modal" hidden>
+    <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+      <div class="modal-image">
+        <img class="space-image" id="modal-photo" alt="">
+        <button class="close-button" id="close-modal" type="button" aria-label="닫기">×</button>
+        <div class="modal-heading"><div class="modal-tags" id="modal-tags"></div><h2 id="modal-title"></h2><p id="modal-korean"></p></div>
+      </div>
+      <dl class="details" id="modal-details"></dl>
+    </section>
+  </div>
+  <script>
+    'use strict';
+    const spaces = [
+  {
+    id: 1,
+    nameEn: '3F Lounge',
+    nameKo: '3층 라운지 및 다과 공간',
+    location: '3F',
+    type: 'INDOOR',
+    tags: ['SNACK'],
+    descKo: '따뜻한 음료와 간식을 즐기며 잠깐 쉴 수 있는 실내 라운지.',
+    image: 'https://images.unsplash.com/photo-1604328727766-a151d1045ab4?w=600&h=380&fit=crop&auto=format',
+    detail: {
+      위치: '3층 강의실 바로 앞',
+      시설: '소파, 테이블, 다과 코너 (커피·음료·스낵)',
+      특징: '공부하기 좋으며 분위기가 밝고 편안합니다.',
+      TIP: '사람들과 친해지기 좋습니다',
+    },
+  },
+  {
+    id: 2,
+    nameEn: '3F Terrace',
+    nameKo: '3층 야외 휴식 공간',
+    location: '3F',
+    type: 'OUTDOOR',
+    tags: ['REST'],
+    descKo: '3층과 바로 연결되는 야외 테라스. 신선한 바람과 함께 기분 전환.',
+    image: 'https://images.unsplash.com/photo-1493246318656-5bfd4cfb29b8?w=600&h=380&fit=crop&auto=format',
+    detail: {
+      위치: '3층 엘레베이터 옆',
+      시설: '야외 의자, 테이블, 파라솔',
+      특징: '탁 트인 뷰와 자연 바람으로 머리를 식히기에 최적의 공간.',
+      TIP: '날씨 좋은 날 나오면 집중력이 올라갑니다.',
+    },
+  },
+  {
+    id: 3,
+    nameEn: 'Step Lounge',
+    nameKo: '1층 계단형 공간',
+    location: '1F',
+    type: 'INDOOR',
+    tags: ['REST'],
+    descKo: '계단 형태로 설계된 1층 라운지. 혼자 쉬거나 이야기 나누기 좋아요.',
+    image: 'https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?w=600&h=380&fit=crop&auto=format',
+    detail: {
+      위치: '1층 로비 옆 계단형 좌석 공간',
+      시설: '계단형 벤치 좌석, 쿠션',
+      특징: '개방적인 구조이며 넓어서 대화하기 좋은 장소입니다.',
+      TIP: '점심시간 후에 가볍게 앉기 좋습니다.',
+    },
+  },
+  {
+    id: 4,
+    nameEn: 'Rooftop',
+    nameKo: '옥상 야외 공간',
+    location: 'RF',
+    type: 'OUTDOOR',
+    tags: ['REST'],
+    descKo: '탁 트인 하늘 아래 옥상 공간. 넓은 시야로 답답함을 날려보세요.',
+    image: 'https://images.unsplash.com/photo-1574167455363-acc39a6c1d4a?w=600&h=380&fit=crop&auto=format',
+    detail: {
+      위치: '최상층 엘리베이터',
+      시설: '야외 벤치, 개방 공간',
+      특징: '사방이 트여 있어 하늘과 주변 풍경을 한눈에 감상할 수 있습니다.',
+      TIP: '해 질 녘에 올라가면 노을이 정말 멋집니다.',
+    },
+  },
+  {
+    id: 5,
+    nameEn: 'Front Bench',
+    nameKo: '건물 앞 벤치 공간',
+    location: '건물 전면',
+    type: 'OUTDOOR',
+    tags: ['REST'],
+    descKo: '건물 정면 앞 벤치. 햇볕 쬐며 바깥 공기 마시기에 딱 좋습니다.',
+    image: 'https://images.unsplash.com/photo-1780694291237-b57ead31283c?w=600&h=380&fit=crop&auto=format',
+    detail: {
+      위치: '건물 정문 앞 야외 광장',
+      시설: '벤치, 편의점, 카페',
+      특징: '간단한 스트레칭이나 잠깐의 산책을 병행하기에 적합합니다.',
+      TIP: '강의 사이 10분이라도 햇빛을 받으면 컨디션 회복에 도움이 됩니다.',
+    },
+  },
+  {
+    id: 6,
+    nameEn: 'Backyard Walk',
+    nameKo: '건물 뒤 벤치 및 산책 공간',
+    location: '건물 후면',
+    type: 'OUTDOOR',
+    tags: ['WALK'],
+    descKo: '뒤편 조용한 산책로와 벤치. 걸으며 생각을 정리할 수 있는 곳.',
+    image: 'https://images.unsplash.com/photo-1780216201303-d917727c6a7a?w=600&h=380&fit=crop&auto=format',
+    detail: {
+      위치: '건물 후면 출입구를 통해 진입',
+      시설: '산책로, 벤치, 자연 녹지',
+      특징: '조용하고 한적해서 집중이 끊겼을 때 걷기에 안성맞춤.',
+      TIP: '이어폰 끼고 15분만 걸으면 강의 집중력이 돌아옵니다.',
+    },
+  },
+  {
+    id: 7,
+    nameEn: 'Fitness Zone',
+    nameKo: '건물 오른쪽 야외 운동 공간',
+    location: '건물 우측',
+    type: 'OUTDOOR',
+    tags: ['FITNESS'],
+    descKo: '야외 운동기구가 갖춰진 공간. 스트레칭과 운동으로 몸을 깨워보세요.',
+    image: 'https://images.unsplash.com/photo-1607962815971-449d73b02eb8?w=600&h=380&fit=crop&auto=format',
+    detail: {
+      위치: '건물 우측 외부로 3분 걷기',
+      시설: '야외 운동기구, 스트레칭 공간, 음수대',
+      특징: '오랜 시간 앉아 있었다면 근육을 풀어주기에 최적의 장소.',
+      TIP: '점심 시간 적극 추천!',
+    },
+  },
+];
+    const tagLabels = { SNACK: '☕ SNACK', REST: '💤 REST', WALK: '🌿 WALK', FITNESS: '💪 FITNESS' };
+    const accents = { '위치': 'var(--hyundai-blue)', '시설': 'var(--hyundai-blue)', '특징': 'var(--hyundai-blue)', TIP: 'var(--hyundai-gold)' };
+    const cards = document.getElementById('cards');
+    const modal = document.getElementById('modal');
+    const page = document.getElementById('page');
+    const closeButton = document.getElementById('close-modal');
+    let previousFocus = null;
+    let previousOverflow = '';
+    function tags(space) {
+      return space.tags.map(tag => `<span class="badge tag-${tag.toLowerCase()}">${tagLabels[tag]}</span>`).join('');
+    }
+    function typeBadge(space, extraClass = '') {
+      return `<span class="badge type-${space.type.toLowerCase()} ${extraClass}">${space.type}</span>`;
+    }
+    function render(filter = 'ALL') {
+      const filtered = spaces.filter(space => filter === 'ALL' || space.type === filter);
+      cards.innerHTML = [filtered.slice(0, 4), filtered.slice(4)].filter(row => row.length).map(row => `
+        <div class="card-grid-row" style="--columns: ${row.length}">${row.map(space => `
+          <article class="space-card" tabindex="0" role="button" aria-haspopup="dialog" aria-label="${space.nameEn} · ${space.nameKo} 상세 보기" data-id="${space.id}">
+            <div class="card-image"><img class="space-image" src="${space.image}" alt="${space.nameKo}">${typeBadge(space, 'card-type')}<span class="location">${space.location}</span></div>
+            <div class="card-text"><h2 class="card-name">${space.nameEn}</h2><p class="card-korean">${space.nameKo}</p><p class="card-description">${space.descKo}</p><div class="tags">${tags(space)}</div></div>
+          </article>`).join('')}</div>`).join('');
+      document.getElementById('result-status').textContent = `${filter}: ${filtered.length}개의 공간`;
+    }
+    function openModal(card) {
+      const space = spaces.find(item => item.id === Number(card.dataset.id));
+      if (!space) return;
+      previousFocus = card;
+      const photo = document.getElementById('modal-photo');
+      photo.src = space.image;
+      photo.alt = space.nameKo;
+      document.getElementById('modal-title').textContent = space.nameEn;
+      document.getElementById('modal-korean').textContent = space.nameKo;
+      document.getElementById('modal-tags').innerHTML = typeBadge(space) + tags(space);
+      document.getElementById('modal-details').innerHTML = Object.entries(space.detail).map(([label, value]) => `<div class="detail-row"><dt style="color: ${accents[label]}">${label}</dt><dd>${value}</dd></div>`).join('');
+      modal.hidden = false;
+      modal.querySelector('.modal-panel').scrollTop = 0;
+      previousOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      page.inert = true;
+      closeButton.focus();
+    }
+    function closeModal() {
+      if (modal.hidden) return;
+      modal.hidden = true;
+      page.inert = false;
+      document.body.style.overflow = previousOverflow;
+      previousFocus?.focus();
+    }
+    document.querySelectorAll('[data-filter]').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('[data-filter]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+        render(button.dataset.filter);
+      });
+    });
+    cards.addEventListener('click', event => {
+      const card = event.target.closest('[data-id]');
+      if (card) openModal(card);
+    });
+    cards.addEventListener('keydown', event => {
+      const card = event.target.closest('[data-id]');
+      if (card && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault();
+        openModal(card);
+      }
+    });
+    closeButton.addEventListener('click', closeModal);
+    modal.addEventListener('click', event => { if (event.target === modal) closeModal(); });
+    document.addEventListener('keydown', event => {
+      if (modal.hidden) return;
+      if (event.key === 'Escape') closeModal();
+      if (event.key === 'Tab') { event.preventDefault(); closeButton.focus(); }
+    });
+    render();
+  </script>
+</body>
+</html>
